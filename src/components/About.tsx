@@ -1,27 +1,30 @@
-import { Box, Container, Typography, Grid } from '@mui/material';
+import { Box, Container, Typography } from '@mui/material';
 import { motion, useInView } from 'motion/react';
 import { useRef } from 'react';
-import { Sparkles, Code, Zap } from 'lucide-react';
+import { Sparkles, Code, Zap, ArrowRight } from 'lucide-react';
 import { SpotlightCard } from './ui/spotlightcard';
 
 const MotionBox = motion.create(Box);
 
 const highlights = [
     {
-        icon: <Code size={24} />,
+        icon: <Code size={28} />,
         title: 'Currently Building',
         description: 'BotBhai - A SaaS webapp',
         link: 'https://chat.botbhai.net/',
+        gradient: 'linear-gradient(135deg, #0ea5e9, #6366f1)',
     },
     {
-        icon: <Sparkles size={24} />,
+        icon: <Sparkles size={28} />,
         title: 'Learning',
         description: 'JavaScript, React, TypeScript, and Git',
+        gradient: 'linear-gradient(135deg, #f59e0b, #ef4444)',
     },
     {
-        icon: <Zap size={24} />,
+        icon: <Zap size={28} />,
         title: 'Ask Me About',
         description: 'AI Automation, Next.js, and Web Development',
+        gradient: 'linear-gradient(135deg, #10b981, #06b6d4)',
     },
 ];
 
@@ -34,11 +37,40 @@ export default function About() {
             id="about"
             component="section"
             sx={{
-                py: { xs: 10, md: 15 },
+                py: { xs: 12, md: 18 },
                 position: 'relative',
                 background: 'var(--bg-secondary)',
+                overflow: 'hidden',
             }}
         >
+            {/* Background decorative elements */}
+            <Box
+                sx={{
+                    position: 'absolute',
+                    top: '10%',
+                    left: '-5%',
+                    width: '400px',
+                    height: '400px',
+                    background: 'radial-gradient(circle, rgba(12, 123, 255, 0.08) 0%, transparent 70%)',
+                    borderRadius: '50%',
+                    filter: 'blur(60px)',
+                    pointerEvents: 'none',
+                }}
+            />
+            <Box
+                sx={{
+                    position: 'absolute',
+                    bottom: '10%',
+                    right: '-5%',
+                    width: '350px',
+                    height: '350px',
+                    background: 'radial-gradient(circle, rgba(139, 92, 246, 0.08) 0%, transparent 70%)',
+                    borderRadius: '50%',
+                    filter: 'blur(60px)',
+                    pointerEvents: 'none',
+                }}
+            />
+
             <Container maxWidth="lg">
                 <MotionBox
                     ref={ref}
@@ -47,25 +79,37 @@ export default function About() {
                     transition={{ duration: 0.6 }}
                 >
                     {/* Section Header */}
-                    <Box sx={{ textAlign: 'center', mb: 8 }}>
-                        <Typography
-                            variant="overline"
-                            sx={{
-                                color: 'var(--primary-400)',
-                                fontWeight: 600,
-                                letterSpacing: 3,
-                                mb: 1,
-                                display: 'block',
-                            }}
+                    <Box sx={{ textAlign: 'center', mb: { xs: 6, md: 10 } }}>
+                        <MotionBox
+                            initial={{ opacity: 0, scale: 0.9 }}
+                            animate={isInView ? { opacity: 1, scale: 1 } : {}}
+                            transition={{ duration: 0.5 }}
                         >
-                            ABOUT ME
-                        </Typography>
+                            <Typography
+                                variant="overline"
+                                sx={{
+                                    color: 'var(--primary-400)',
+                                    fontWeight: 600,
+                                    letterSpacing: 4,
+                                    mb: 2,
+                                    display: 'inline-block',
+                                    px: 3,
+                                    py: 1,
+                                    borderRadius: 50,
+                                    background: 'rgba(12, 123, 255, 0.1)',
+                                    border: '1px solid rgba(12, 123, 255, 0.2)',
+                                }}
+                            >
+                                ABOUT ME
+                            </Typography>
+                        </MotionBox>
                         <Typography
                             variant="h2"
                             sx={{
                                 fontWeight: 700,
-                                mb: 2,
-                                background: 'linear-gradient(135deg, var(--text-primary) 0%, var(--primary-400) 100%)',
+                                mt: 3,
+                                fontSize: { xs: '2rem', md: '3rem' },
+                                background: 'linear-gradient(135deg, var(--text-primary) 0%, var(--primary-400) 50%, var(--accent-400) 100%)',
                                 WebkitBackgroundClip: 'text',
                                 WebkitTextFillColor: 'transparent',
                             }}
@@ -74,124 +118,211 @@ export default function About() {
                         </Typography>
                     </Box>
 
-                    {/* Main Content */}
-                    <Grid container spacing={6} alignItems="center">
-                        {/* Text Content */}
-                        <Grid size={{ xs: 12, md: 7 }}>
-                            <MotionBox
-                                initial={{ opacity: 0, x: -30 }}
-                                animate={isInView ? { opacity: 1, x: 0 } : {}}
-                                transition={{ duration: 0.6, delay: 0.2 }}
+                    {/* Main Content - Text */}
+                    <Box sx={{ maxWidth: '800px', mx: 'auto', mb: { xs: 6, md: 8 } }}>
+                        <MotionBox
+                            initial={{ opacity: 0, y: 30 }}
+                            animate={isInView ? { opacity: 1, y: 0 } : {}}
+                            transition={{ duration: 0.6, delay: 0.2 }}
+                        >
+                            <Typography
+                                variant="body1"
+                                sx={{
+                                    fontSize: { xs: '1.1rem', md: '1.25rem' },
+                                    lineHeight: 2,
+                                    color: 'var(--text-secondary)',
+                                    textAlign: 'center',
+                                    mb: 3,
+                                }}
                             >
-                                <Typography
-                                    variant="body1"
-                                    sx={{
-                                        fontSize: '1.15rem',
-                                        lineHeight: 1.9,
-                                        color: 'var(--text-secondary)',
-                                        mb: 4,
-                                    }}
-                                >
-                                    I'm a passionate <strong style={{ color: 'var(--primary-400)' }}>Full Stack Developer</strong> and
-                                    student with a deep interest in technology and innovation. My journey started with
-                                    AI Automation before I fell in love with Full-Stack Development.
-                                </Typography>
-                                <Typography
-                                    variant="body1"
-                                    sx={{
-                                        fontSize: '1.15rem',
-                                        lineHeight: 1.9,
-                                        color: 'var(--text-secondary)',
-                                        mb: 4,
-                                    }}
-                                >
-                                    Currently, I'm focused on building modern web applications and exploring the
-                                    intersection of AI and web development. I love creating tools that solve real
-                                    problems and make people's lives easier.
-                                </Typography>
+                                I'm a passionate <Box component="span" sx={{
+                                    color: 'var(--primary-400)',
+                                    fontWeight: 600,
+                                    position: 'relative',
+                                    '&::after': {
+                                        content: '""',
+                                        position: 'absolute',
+                                        bottom: -2,
+                                        left: 0,
+                                        width: '100%',
+                                        height: '2px',
+                                        background: 'linear-gradient(90deg, var(--primary-400), transparent)',
+                                    }
+                                }}>Full Stack Developer</Box> and
+                                student with a deep interest in technology and innovation.
+                            </Typography>
+                            <Typography
+                                variant="body1"
+                                sx={{
+                                    fontSize: { xs: '1.1rem', md: '1.25rem' },
+                                    lineHeight: 2,
+                                    color: 'var(--text-secondary)',
+                                    textAlign: 'center',
+                                }}
+                            >
+                                Currently focused on building modern web applications and exploring the
+                                intersection of AI and web development. I love creating tools that solve real
+                                problems and make people's lives easier.
+                            </Typography>
+                        </MotionBox>
+                    </Box>
 
-                                {/* Fun Fact */}
+                    {/* Fun Fact Card - Full Width */}
+                    <MotionBox
+                        initial={{ opacity: 0, y: 30 }}
+                        animate={isInView ? { opacity: 1, y: 0 } : {}}
+                        transition={{ duration: 0.6, delay: 0.3 }}
+                        sx={{ mb: { xs: 4, md: 6 } }}
+                    >
+                        <SpotlightCard
+                            spotlightColor="139, 92, 246"
+                            style={{ width: '100%' }}
+                        >
+                            <Box
+                                sx={{
+                                    p: { xs: 3, md: 4 },
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: 2,
+                                    flexWrap: 'wrap',
+                                    justifyContent: 'center',
+                                    textAlign: 'center',
+                                }}
+                            >
                                 <Box
                                     sx={{
-                                        p: 3,
-                                        borderRadius: 3,
-                                        background: 'var(--glass-bg)',
-                                        backdropFilter: 'blur(12px)',
-                                        border: '1px solid var(--border-color)',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        width: 48,
+                                        height: 48,
+                                        borderRadius: '12px',
+                                        background: 'linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(139, 92, 246, 0.05))',
+                                        border: '1px solid rgba(139, 92, 246, 0.3)',
+                                        fontSize: '1.5rem',
                                     }}
                                 >
+                                    ⚡
+                                </Box>
+                                <Box>
                                     <Typography
                                         variant="body2"
-                                        sx={{ color: 'var(--primary-400)', fontWeight: 600, mb: 1 }}
+                                        sx={{
+                                            color: 'rgba(139, 92, 246, 1)',
+                                            fontWeight: 700,
+                                            fontSize: '0.85rem',
+                                            letterSpacing: 1,
+                                            textTransform: 'uppercase',
+                                            mb: 0.5,
+                                        }}
                                     >
-                                        ⚡ Fun Fact
+                                        Fun Fact
                                     </Typography>
                                     <Typography
                                         variant="body1"
-                                        sx={{ color: 'var(--text-secondary)' }}
+                                        sx={{ color: 'var(--text-secondary)', fontSize: { xs: '0.95rem', md: '1.05rem' } }}
                                     >
                                         I started my journey with AI Automation before falling in love with Full-Stack Development!
                                     </Typography>
                                 </Box>
-                            </MotionBox>
-                        </Grid>
+                            </Box>
+                        </SpotlightCard>
+                    </MotionBox>
 
-                        {/* Highlight Cards */}
-                        <Grid size={{ xs: 12, md: 5 }}>
-                            <Box sx={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', gap: 3 }}>
-                                {highlights.map((item, index) => (
-                                    <MotionBox
-                                        key={index}
-                                        initial={{ opacity: 0, x: 30 }}
-                                        animate={isInView ? { opacity: 1, x: 0 } : {}}
-                                        transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
+                    {/* Highlight Cards - Grid */}
+                    <Box
+                        sx={{
+                            display: 'grid',
+                            gridTemplateColumns: { xs: '1fr', sm: 'repeat(3, 1fr)' },
+                            gap: { xs: 2, md: 3 },
+                        }}
+                    >
+                        {highlights.map((item, index) => (
+                            <MotionBox
+                                key={index}
+                                initial={{ opacity: 0, y: 30 }}
+                                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                                transition={{ duration: 0.5, delay: 0.4 + index * 0.1 }}
+                            >
+                                <SpotlightCard
+                                    spotlightColor="12, 123, 255"
+                                    style={{ width: '100%', height: '100%' }}
+                                >
+                                    <Box
+                                        component={item.link ? 'a' : 'div'}
+                                        href={item.link}
+                                        target={item.link ? '_blank' : undefined}
+                                        rel={item.link ? 'noopener noreferrer' : undefined}
+                                        sx={{
+                                            p: { xs: 3, md: 4 },
+                                            display: 'flex',
+                                            flexDirection: 'column',
+                                            textDecoration: 'none',
+                                            cursor: item.link ? 'pointer' : 'default',
+                                            height: '100%',
+                                            transition: 'transform 0.3s ease',
+                                            '&:hover': item.link ? {
+                                                transform: 'translateY(-4px)',
+                                            } : {},
+                                        }}
                                     >
-                                        <SpotlightCard
-                                            spotlightColor="12, 123, 255"
-                                            style={{ width: '100%' }}
+                                        {/* Icon with gradient background */}
+                                        <Box
+                                            sx={{
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                justifyContent: 'center',
+                                                width: 56,
+                                                height: 56,
+                                                borderRadius: '16px',
+                                                background: item.gradient,
+                                                mb: 2.5,
+                                                color: '#fff',
+                                                boxShadow: '0 8px 32px rgba(0, 0, 0, 0.2)',
+                                            }}
                                         >
-                                            <Box
-                                                component={item.link ? 'a' : 'div'}
-                                                href={item.link}
-                                                target={item.link ? '_blank' : undefined}
-                                                rel={item.link ? 'noopener noreferrer' : undefined}
+                                            {item.icon}
+                                        </Box>
+
+                                        {/* Title with arrow for links */}
+                                        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1 }}>
+                                            <Typography
+                                                variant="h4"
                                                 sx={{
-                                                    p: 3,
-                                                    display: 'block',
-                                                    textDecoration: 'none',
-                                                    cursor: item.link ? 'pointer' : 'default',
+                                                    fontSize: { xs: '1rem', md: '1.1rem' },
+                                                    fontWeight: 700,
+                                                    color: 'var(--text-primary)',
                                                 }}
                                             >
-                                                <Box
-                                                    sx={{
-                                                        display: 'flex',
-                                                        alignItems: 'center',
-                                                        gap: 2,
-                                                        mb: 1.5,
+                                                {item.title}
+                                            </Typography>
+                                            {item.link && (
+                                                <ArrowRight
+                                                    size={18}
+                                                    style={{
                                                         color: 'var(--primary-400)',
+                                                        transition: 'transform 0.3s ease',
                                                     }}
-                                                >
-                                                    {item.icon}
-                                                    <Typography
-                                                        variant="h4"
-                                                        sx={{ fontSize: '1rem', fontWeight: 600, color: 'var(--text-primary)' }}
-                                                    >
-                                                        {item.title}
-                                                    </Typography>
-                                                </Box>
-                                                <Typography
-                                                    variant="body2"
-                                                    sx={{ color: 'var(--text-secondary)' }}
-                                                >
-                                                    {item.description}
-                                                </Typography>
-                                            </Box>
-                                        </SpotlightCard>
-                                    </MotionBox>
-                                ))}
-                            </Box>
-                        </Grid>
-                    </Grid>
+                                                />
+                                            )}
+                                        </Box>
+
+                                        {/* Description */}
+                                        <Typography
+                                            variant="body2"
+                                            sx={{
+                                                color: 'var(--text-secondary)',
+                                                fontSize: { xs: '0.9rem', md: '0.95rem' },
+                                                lineHeight: 1.7,
+                                            }}
+                                        >
+                                            {item.description}
+                                        </Typography>
+                                    </Box>
+                                </SpotlightCard>
+                            </MotionBox>
+                        ))}
+                    </Box>
                 </MotionBox>
             </Container>
         </Box>

@@ -1,4 +1,4 @@
-import { Box, Container, Typography, Grid } from '@mui/material';
+import { Box, Container, Typography } from '@mui/material';
 import { motion, useInView } from 'motion/react';
 import { useRef } from 'react';
 
@@ -102,95 +102,115 @@ export default function Skills() {
                     </Box>
 
                     {/* Skills Grid */}
-                    <Grid container spacing={4}>
+                    <Box
+                        sx={{
+                            display: 'grid',
+                            gridTemplateColumns: {
+                                xs: '1fr',
+                                sm: 'repeat(2, 1fr)',
+                                lg: 'repeat(4, 1fr)'
+                            },
+                            gap: 3,
+                        }}
+                    >
                         {skillCategories.map((category, categoryIndex) => (
-                            <Grid size={{ xs: 12, sm: 6, lg: 3 }} key={category.title}>
-                                <MotionBox
-                                    initial={{ opacity: 0, y: 30 }}
-                                    animate={isInView ? { opacity: 1, y: 0 } : {}}
-                                    transition={{ duration: 0.5, delay: 0.1 * categoryIndex }}
+                            <MotionBox
+                                key={category.title}
+                                initial={{ opacity: 0, y: 30 }}
+                                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                                transition={{ duration: 0.5, delay: 0.1 * categoryIndex }}
+                                sx={{
+                                    p: 3,
+                                    borderRadius: 3,
+                                    background: 'var(--bg-secondary)',
+                                    border: '1px solid var(--border-color)',
+                                    transition: 'all 0.3s ease',
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    '&:hover': {
+                                        transform: 'translateY(-5px)',
+                                        borderColor: 'var(--primary-400)',
+                                        boxShadow: '0 15px 40px rgba(12, 123, 255, 0.1)',
+                                    },
+                                }}
+                            >
+                                <Typography
+                                    variant="h4"
                                     sx={{
-                                        p: 3,
-                                        height: '100%',
-                                        borderRadius: 3,
-                                        background: 'var(--bg-secondary)',
-                                        border: '1px solid var(--border-color)',
-                                        transition: 'all 0.3s ease',
-                                        '&:hover': {
-                                            transform: 'translateY(-5px)',
-                                            borderColor: 'var(--primary-400)',
-                                            boxShadow: '0 15px 40px rgba(12, 123, 255, 0.1)',
-                                        },
+                                        fontSize: '1rem',
+                                        fontWeight: 600,
+                                        color: 'var(--primary-400)',
+                                        mb: 2,
+                                        pb: 1.5,
+                                        borderBottom: '1px solid var(--border-color)',
                                     }}
                                 >
-                                    <Typography
-                                        variant="h4"
-                                        sx={{
-                                            fontSize: '1.1rem',
-                                            fontWeight: 600,
-                                            color: 'var(--primary-400)',
-                                            mb: 3,
-                                            pb: 2,
-                                            borderBottom: '1px solid var(--border-color)',
-                                        }}
-                                    >
-                                        {category.title}
-                                    </Typography>
+                                    {category.title}
+                                </Typography>
 
-                                    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2.5 }}>
-                                        {category.skills.map((skill, skillIndex) => (
-                                            <Box key={skill.name}>
-                                                <Box
+                                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, flex: 1 }}>
+                                    {category.skills.map((skill, skillIndex) => (
+                                        <Box key={skill.name}>
+                                            <Box
+                                                sx={{
+                                                    display: 'flex',
+                                                    justifyContent: 'space-between',
+                                                    alignItems: 'center',
+                                                    mb: 0.5,
+                                                }}
+                                            >
+                                                <Typography
+                                                    variant="body2"
                                                     sx={{
-                                                        display: 'flex',
-                                                        justifyContent: 'space-between',
-                                                        mb: 0.5,
+                                                        color: 'var(--text-primary)',
+                                                        fontWeight: 500,
+                                                        fontSize: '0.85rem',
                                                     }}
                                                 >
-                                                    <Typography
-                                                        variant="body2"
-                                                        sx={{ color: 'var(--text-primary)', fontWeight: 500 }}
-                                                    >
-                                                        {skill.name}
-                                                    </Typography>
-                                                    <Typography
-                                                        variant="body2"
-                                                        sx={{ color: 'var(--text-tertiary)' }}
-                                                    >
-                                                        {skill.level}%
-                                                    </Typography>
-                                                </Box>
-                                                <Box
+                                                    {skill.name}
+                                                </Typography>
+                                                <Typography
+                                                    variant="body2"
                                                     sx={{
-                                                        width: '100%',
-                                                        height: 6,
-                                                        borderRadius: 3,
-                                                        background: 'var(--border-color)',
-                                                        overflow: 'hidden',
+                                                        color: 'var(--text-tertiary)',
+                                                        fontSize: '0.75rem',
+                                                        minWidth: '32px',
+                                                        textAlign: 'right',
                                                     }}
                                                 >
-                                                    <MotionBox
-                                                        initial={{ width: 0 }}
-                                                        animate={isInView ? { width: `${skill.level}%` } : {}}
-                                                        transition={{
-                                                            duration: 1,
-                                                            delay: 0.3 + categoryIndex * 0.1 + skillIndex * 0.1,
-                                                            ease: 'easeOut',
-                                                        }}
-                                                        sx={{
-                                                            height: '100%',
-                                                            borderRadius: 3,
-                                                            background: 'linear-gradient(90deg, var(--primary-500), var(--accent-400))',
-                                                        }}
-                                                    />
-                                                </Box>
+                                                    {skill.level}%
+                                                </Typography>
                                             </Box>
-                                        ))}
-                                    </Box>
-                                </MotionBox>
-                            </Grid>
+                                            <Box
+                                                sx={{
+                                                    width: '100%',
+                                                    height: 4,
+                                                    borderRadius: 2,
+                                                    background: 'var(--border-color)',
+                                                    overflow: 'hidden',
+                                                }}
+                                            >
+                                                <MotionBox
+                                                    initial={{ width: 0 }}
+                                                    animate={isInView ? { width: `${skill.level}%` } : {}}
+                                                    transition={{
+                                                        duration: 1,
+                                                        delay: 0.3 + categoryIndex * 0.1 + skillIndex * 0.1,
+                                                        ease: 'easeOut',
+                                                    }}
+                                                    sx={{
+                                                        height: '100%',
+                                                        borderRadius: 2,
+                                                        background: 'linear-gradient(90deg, var(--primary-500), var(--accent-400))',
+                                                    }}
+                                                />
+                                            </Box>
+                                        </Box>
+                                    ))}
+                                </Box>
+                            </MotionBox>
                         ))}
-                    </Grid>
+                    </Box>
                 </MotionBox>
             </Container>
         </Box>

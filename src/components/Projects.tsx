@@ -1,7 +1,8 @@
-import { Box, Container, Typography, Grid, Chip } from '@mui/material';
+import { Box, Container, Typography } from '@mui/material';
 import { motion, useInView } from 'motion/react';
 import { useRef } from 'react';
-import { Github, ExternalLink, Star } from 'lucide-react';
+import { Folder, ArrowUpRight } from 'lucide-react';
+import { ExpandingCards } from './ui/expanding-cards';
 
 const MotionBox = motion.create(Box);
 
@@ -9,50 +10,44 @@ const projects = [
     {
         title: 'BotBhai',
         description: 'A SaaS webapp for AI-powered conversations. Currently my main project featuring modern web technologies and AI integration.',
+        image: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=2070&auto=format&fit=crop',
         tags: ['Next.js', 'React', 'AI', 'SaaS'],
-        github: null,
-        live: 'https://chat.botbhai.net/',
-        featured: true,
+        link: 'https://chat.botbhai.net/',
     },
     {
         title: 'Product Pricing App',
         description: 'An Android app for personal use, built as a fun project to explore mobile development with TypeScript.',
+        image: 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?q=80&w=2070&auto=format&fit=crop',
         tags: ['TypeScript', 'Android', 'Mobile'],
-        github: 'https://github.com/tanviralamtusar/Product-pricing-app',
-        live: null,
-        featured: false,
+        link: 'https://github.com/tanviralamtusar/Product-pricing-app',
     },
     {
         title: 'Color Picker Extension',
         description: 'A browser extension for picking colors from any webpage. My exploration into browser extension development.',
+        image: 'https://images.unsplash.com/photo-1541701494587-cb58502866ab?q=80&w=2070&auto=format&fit=crop',
         tags: ['JavaScript', 'Browser Extension', 'Chrome'],
-        github: 'https://github.com/tanviralamtusar/color-picker-extension',
-        live: null,
-        featured: false,
+        link: 'https://github.com/tanviralamtusar/color-picker-extension',
     },
     {
         title: 'Website Link Extractor',
         description: 'A tool to extract and organize links from websites. Useful for content analysis and web scraping.',
+        image: '/website-link-extractor.png',
         tags: ['JavaScript', 'Web Scraping', 'Tools'],
-        github: 'https://github.com/tanviralamtusar/website-link-extractor',
-        live: null,
-        featured: false,
+        link: 'https://github.com/tanviralamtusar/website-link-extractor',
     },
     {
         title: 'SysMonBar',
         description: 'A system monitoring tool built with Python. Monitors system resources and displays them in a convenient bar.',
+        image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop',
         tags: ['Python', 'System Tools', 'Desktop'],
-        github: 'https://github.com/tanviralamtusar/SysMonBar',
-        live: null,
-        featured: false,
+        link: 'https://github.com/tanviralamtusar/SysMonBar',
     },
     {
         title: 'Modern Website',
         description: 'My first website project! A journey into web development that sparked my passion for creating on the web.',
+        image: 'https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?q=80&w=2069&auto=format&fit=crop',
         tags: ['HTML', 'CSS', 'First Project'],
-        github: 'https://github.com/tanviralamtusar/ModernWebsite',
-        live: null,
-        featured: false,
+        link: 'https://github.com/tanviralamtusar/ModernWebsite',
     },
 ];
 
@@ -65,11 +60,40 @@ export default function Projects() {
             id="projects"
             component="section"
             sx={{
-                py: { xs: 10, md: 15 },
+                py: { xs: 12, md: 18 },
                 position: 'relative',
                 background: 'var(--bg-secondary)',
+                overflow: 'hidden',
             }}
         >
+            {/* Background decorative elements */}
+            <Box
+                sx={{
+                    position: 'absolute',
+                    top: '20%',
+                    right: '-10%',
+                    width: '500px',
+                    height: '500px',
+                    background: 'radial-gradient(circle, rgba(12, 123, 255, 0.06) 0%, transparent 70%)',
+                    borderRadius: '50%',
+                    filter: 'blur(80px)',
+                    pointerEvents: 'none',
+                }}
+            />
+            <Box
+                sx={{
+                    position: 'absolute',
+                    bottom: '10%',
+                    left: '-10%',
+                    width: '400px',
+                    height: '400px',
+                    background: 'radial-gradient(circle, rgba(139, 92, 246, 0.06) 0%, transparent 70%)',
+                    borderRadius: '50%',
+                    filter: 'blur(80px)',
+                    pointerEvents: 'none',
+                }}
+            />
+
             <Container maxWidth="lg">
                 <MotionBox
                     ref={ref}
@@ -78,25 +102,38 @@ export default function Projects() {
                     transition={{ duration: 0.6 }}
                 >
                     {/* Section Header */}
-                    <Box sx={{ textAlign: 'center', mb: 8 }}>
-                        <Typography
-                            variant="overline"
-                            sx={{
-                                color: 'var(--primary-400)',
-                                fontWeight: 600,
-                                letterSpacing: 3,
-                                mb: 1,
-                                display: 'block',
-                            }}
+                    <Box sx={{ textAlign: 'center', mb: { xs: 6, md: 10 } }}>
+                        <MotionBox
+                            initial={{ opacity: 0, scale: 0.9 }}
+                            animate={isInView ? { opacity: 1, scale: 1 } : {}}
+                            transition={{ duration: 0.5 }}
                         >
-                            PROJECTS
-                        </Typography>
+                            <Typography
+                                variant="overline"
+                                sx={{
+                                    color: 'var(--primary-400)',
+                                    fontWeight: 600,
+                                    letterSpacing: 4,
+                                    mb: 2,
+                                    display: 'inline-block',
+                                    px: 3,
+                                    py: 1,
+                                    borderRadius: 50,
+                                    background: 'rgba(12, 123, 255, 0.1)',
+                                    border: '1px solid rgba(12, 123, 255, 0.2)',
+                                }}
+                            >
+                                PROJECTS
+                            </Typography>
+                        </MotionBox>
                         <Typography
                             variant="h2"
                             sx={{
                                 fontWeight: 700,
+                                mt: 3,
                                 mb: 2,
-                                background: 'linear-gradient(135deg, var(--text-primary) 0%, var(--primary-400) 100%)',
+                                fontSize: { xs: '2rem', md: '3rem' },
+                                background: 'linear-gradient(135deg, var(--text-primary) 0%, var(--primary-400) 50%, var(--accent-400) 100%)',
                                 WebkitBackgroundClip: 'text',
                                 WebkitTextFillColor: 'transparent',
                             }}
@@ -109,179 +146,94 @@ export default function Projects() {
                                 color: 'var(--text-secondary)',
                                 maxWidth: '600px',
                                 mx: 'auto',
+                                fontSize: { xs: '1rem', md: '1.15rem' },
+                                lineHeight: 1.8,
                             }}
                         >
                             A collection of projects that showcase my journey and skills
                         </Typography>
                     </Box>
 
-                    {/* Projects Grid */}
-                    <Grid container spacing={4}>
-                        {projects.map((project, index) => (
-                            <Grid
-                                size={{
-                                    xs: 12,
-                                    sm: 6,
-                                    md: project.featured ? 12 : 6,
-                                    lg: project.featured ? 12 : 4
-                                }}
-                                key={project.title}
-                            >
-                                <MotionBox
-                                    initial={{ opacity: 0, y: 30 }}
-                                    animate={isInView ? { opacity: 1, y: 0 } : {}}
-                                    transition={{ duration: 0.5, delay: 0.1 * index }}
-                                    sx={{
-                                        p: 4,
-                                        height: '100%',
-                                        borderRadius: 3,
-                                        background: project.featured
-                                            ? 'linear-gradient(135deg, var(--bg-tertiary) 0%, var(--bg-primary) 100%)'
-                                            : 'var(--bg-primary)',
-                                        border: project.featured
-                                            ? '2px solid var(--primary-500)'
-                                            : '1px solid var(--border-color)',
-                                        position: 'relative',
-                                        overflow: 'hidden',
-                                        transition: 'all 0.3s ease',
-                                        '&:hover': {
-                                            transform: 'translateY(-8px)',
-                                            borderColor: 'var(--primary-400)',
-                                            boxShadow: '0 20px 50px rgba(12, 123, 255, 0.15)',
-                                        },
-                                        '&::before': project.featured ? {
-                                            content: '""',
-                                            position: 'absolute',
-                                            top: 0,
-                                            left: 0,
-                                            right: 0,
-                                            height: '4px',
-                                            background: 'linear-gradient(90deg, var(--primary-400), var(--accent-400), var(--secondary-400))',
-                                        } : {},
-                                    }}
-                                >
-                                    {/* Featured Badge */}
-                                    {project.featured && (
-                                        <Box
-                                            sx={{
-                                                position: 'absolute',
-                                                top: 16,
-                                                right: 16,
-                                                display: 'flex',
-                                                alignItems: 'center',
-                                                gap: 0.5,
-                                                px: 1.5,
-                                                py: 0.5,
-                                                borderRadius: 2,
-                                                background: 'linear-gradient(135deg, var(--primary-500), var(--accent-500))',
-                                                color: 'white',
-                                                fontSize: '0.75rem',
-                                                fontWeight: 600,
-                                            }}
-                                        >
-                                            <Star size={14} />
-                                            Featured
-                                        </Box>
-                                    )}
+                    {/* Expanding Cards */}
+                    <MotionBox
+                        initial={{ opacity: 0, y: 30 }}
+                        animate={isInView ? { opacity: 1, y: 0 } : {}}
+                        transition={{ duration: 0.6, delay: 0.2 }}
+                    >
+                        <ExpandingCards
+                            cards={projects}
+                            gap={16}
+                            height={450}
+                            breakpoints={[
+                                {
+                                    maxWidth: 640,
+                                    activeWidth: 5,
+                                    inactiveWidth: 1,
+                                    titleActive: '18px',
+                                    titleInactive: '12px',
+                                },
+                                {
+                                    maxWidth: 768,
+                                    activeWidth: 4,
+                                    inactiveWidth: 1,
+                                    titleActive: '20px',
+                                    titleInactive: '14px',
+                                },
+                                {
+                                    maxWidth: 1024,
+                                    activeWidth: 4,
+                                    inactiveWidth: 1,
+                                    titleActive: '24px',
+                                    titleInactive: '16px',
+                                },
+                            ]}
+                            transitionDuration={0.4}
+                        />
+                    </MotionBox>
 
-                                    {/* Project Title */}
-                                    <Typography
-                                        variant="h3"
-                                        sx={{
-                                            fontSize: project.featured ? '1.5rem' : '1.25rem',
-                                            fontWeight: 600,
-                                            color: 'var(--text-primary)',
-                                            mb: 2,
-                                        }}
-                                    >
-                                        {project.title}
-                                    </Typography>
-
-                                    {/* Description */}
-                                    <Typography
-                                        variant="body2"
-                                        sx={{
-                                            color: 'var(--text-secondary)',
-                                            mb: 3,
-                                            lineHeight: 1.7,
-                                        }}
-                                    >
-                                        {project.description}
-                                    </Typography>
-
-                                    {/* Tags */}
-                                    <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mb: 3 }}>
-                                        {project.tags.map((tag) => (
-                                            <Chip
-                                                key={tag}
-                                                label={tag}
-                                                size="small"
-                                                sx={{
-                                                    background: 'var(--glass-bg)',
-                                                    color: 'var(--primary-400)',
-                                                    border: '1px solid var(--border-color)',
-                                                    fontSize: '0.75rem',
-                                                    fontWeight: 500,
-                                                }}
-                                            />
-                                        ))}
-                                    </Box>
-
-                                    {/* Links */}
-                                    <Box sx={{ display: 'flex', gap: 2, mt: 'auto' }}>
-                                        {project.github && (
-                                            <Box
-                                                component="a"
-                                                href={project.github}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                sx={{
-                                                    display: 'flex',
-                                                    alignItems: 'center',
-                                                    gap: 1,
-                                                    color: 'var(--text-secondary)',
-                                                    textDecoration: 'none',
-                                                    fontSize: '0.9rem',
-                                                    fontWeight: 500,
-                                                    transition: 'color 0.3s ease',
-                                                    '&:hover': {
-                                                        color: 'var(--primary-400)',
-                                                    },
-                                                }}
-                                            >
-                                                <Github size={18} />
-                                                Code
-                                            </Box>
-                                        )}
-                                        {project.live && (
-                                            <Box
-                                                component="a"
-                                                href={project.live}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                sx={{
-                                                    display: 'flex',
-                                                    alignItems: 'center',
-                                                    gap: 1,
-                                                    color: 'var(--text-secondary)',
-                                                    textDecoration: 'none',
-                                                    fontSize: '0.9rem',
-                                                    fontWeight: 500,
-                                                    transition: 'color 0.3s ease',
-                                                    '&:hover': {
-                                                        color: 'var(--primary-400)',
-                                                    },
-                                                }}
-                                            >
-                                                <ExternalLink size={18} />
-                                                Live Demo
-                                            </Box>
-                                        )}
-                                    </Box>
-                                </MotionBox>
-                            </Grid>
-                        ))}
-                    </Grid>
+                    {/* View More on GitHub */}
+                    <MotionBox
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={isInView ? { opacity: 1, y: 0 } : {}}
+                        transition={{ duration: 0.5, delay: 0.5 }}
+                        sx={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                            mt: { xs: 6, md: 8 }
+                        }}
+                    >
+                        <Box
+                            component="a"
+                            href="https://github.com/tanviralamtusar"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            sx={{
+                                display: 'inline-flex',
+                                alignItems: 'center',
+                                gap: 1.5,
+                                px: 4,
+                                py: 2,
+                                borderRadius: 50,
+                                background: 'transparent',
+                                border: '2px solid var(--border-color)',
+                                color: 'var(--text-secondary)',
+                                textDecoration: 'none',
+                                fontSize: '1rem',
+                                fontWeight: 600,
+                                transition: 'all 0.3s ease',
+                                '&:hover': {
+                                    borderColor: 'var(--primary-400)',
+                                    color: 'var(--primary-400)',
+                                    transform: 'translateY(-2px)',
+                                    boxShadow: '0 8px 30px rgba(12, 123, 255, 0.2)',
+                                },
+                            }}
+                        >
+                            <Folder size={20} />
+                            View More on GitHub
+                            <ArrowUpRight size={18} />
+                        </Box>
+                    </MotionBox>
                 </MotionBox>
             </Container>
         </Box>
