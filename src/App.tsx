@@ -3,7 +3,7 @@ import { ThemeProvider, CssBaseline } from '@mui/material';
 import { lightTheme, darkTheme } from './theme';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
-import About from './components/About';
+import AboutNew from './components/ui/about-new';
 import Skills from './components/Skills';
 import Projects from './components/Projects';
 import Contact from './components/Contact';
@@ -23,7 +23,7 @@ function App() {
             <Navbar onThemeChange={handleThemeChange} />
             <main>
                 <Hero />
-                <About />
+                <AboutNew />
                 <Skills />
                 <Projects />
                 <Contact />
